@@ -5,8 +5,8 @@ import ProductDetail from "./pages/ProductDetail.jsx";
 import Cart from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderSuccess from "./pages/OrderSuccess.jsx";
-import Login from "./pages/login.jsx";
-import Signup from "./pages/signup.jsx";
+import Login from "./pages/LoginPage.jsx";
+import Signup from "./pages/SignupPage.jsx";
 
 export default function App() {
   return (

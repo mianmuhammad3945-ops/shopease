@@ -1,8 +1,9 @@
+import localProducts from "../data/products.json";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
 import Filters from "../components/Filters.jsx";
-import { API_URL, toPKR } from "../utils/format.js";
+import { toPKR } from "../utils/format.js";
 
 const emptyFilters = { categories: [], minPrice: "", maxPrice: "", minRating: "0" };
 
@@ -16,14 +17,10 @@ export default function Products() {
   const [showFilters, setShowFilters] = useState(false);
   const [params] = useSearchParams();
 
-  useEffect(() => {
-    fetch(`${API_URL}/products`)
-      .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
-      .then(setProducts)
-      .catch(() => setError("Could not load products. Check your internet and refresh."))
-      .finally(() => setLoading(false));
+   useEffect(() => {
+    setProducts(localProducts);
+    setLoading(false);
   }, []);
-
   // allow links like /?category=electronics
   useEffect(() => {
     const c = params.get("category");

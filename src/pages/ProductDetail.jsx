@@ -1,7 +1,8 @@
+import localProducts from "../data/products.json";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
-import { API_URL, formatPrice, titleCase } from "../utils/format.js";
+import { formatPrice, titleCase } from "../utils/format.js";
 import Stars from "../components/Stars.jsx";
 
 export default function ProductDetail() {
@@ -13,12 +14,10 @@ export default function ProductDetail() {
   const [error, setError] = useState("");
   const [added, setAdded] = useState(false);
 
-  useEffect(() => {
-    setProduct(null); setError("");
-    fetch(`${API_URL}/products/${id}`)
-      .then((r) => r.json())
-      .then((d) => (d && d.id ? setProduct(d) : setError("Product not found.")))
-      .catch(() => setError("Could not load this product."));
+    useEffect(() => {
+    const found = localProducts.find((p) => String(p.id) === String(id));
+    if (found) setProduct(found);
+    else setError("Product not found.");
   }, [id]);
 
   if (error) return <p className="py-20 text-center text-red-600">{error}</p>;
